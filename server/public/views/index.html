@@ -2,12 +2,14 @@
 <html>
   <head>
     <title>Intro to Mongoose</title>
+    <link rel="stylesheet" href="/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
     <script src="/vendor/angular.min.js"></script>
     <script src="/scripts/clientapp.js"></script>
     <script src="/scripts/controllers/movieController.js"></script>
   </head>
   <body ng-app="movieApp">
-    <main ng-controller="MovieController">
+    <main ng-controller="MovieController" class="container">
       <section id="movieSubmission">
         <h1>Submit a Movie</h1>
         <form id="movieForm">
@@ -25,10 +27,20 @@
       </section>
       <section id="movies">
         <h1>Movie Listing</h1>
-          <ul id="movieList" ng-repeat="movie in movies">
+          <form id="list-order">
+            <label for="selectSort">Order movies by:</label>
+            <select name="selectSort" ng-model="sortMethod">
+              <option value="title" selected>Title</option>
+              <option value="director">Director</option>
+              <option value="releaseDate">Release Date</option>
+            </select>
+          </form>
+          <ul id="movieList" ng-repeat="movie in movies | orderBy: sortMethod">
             <li class="movie">
               <label for="title">Title:</label>
               <input type="text" id="movie" name="title" ng-model="movie.title" />
+              <label for="director">Director:</label>
+              <input type="text" id="director" name="director" ng-model="movie.director" />
 
               <label for="releaseDate">Release Date:</label>
               <input type="date" id="releaseDate" name="releaseDate" ng-model="movie.releaseDate" />
@@ -44,9 +56,9 @@
                 <form id="commentForm">
                   <label for="comment">Comment:</label>
                   <textarea id="comment" name="comment" ng-model="newComment.content"></textarea>
-                  <button ng-click="submitComment(movie._id)">Submit</button>
                   <label for="postedBy">Posted by:</label>
                   <input type="text" id="currentPoster" name="postedBy" ng-model="newComment.postedBy" />
+                  <button ng-click="submitComment(movie._id)">Submit</button>
                 </form>
               </div>
             </li>
@@ -54,5 +66,10 @@
 
       </section>
     </main>
+    <footer class="container-fluid">
+      <h3 class="text-center"><span class="glyphicon glyphicon-star"></span> A Lonehawk-40 Production <span class="glyphicon glyphicon-star"></span></h3>
+      <p class="text-center">Powered by
+        <a href="https://www.mongodb.com/">mongoDB<span class="glyphicon glyphicon-leaf"></span></a></p>
+    </footer>
   </body>
 </html>

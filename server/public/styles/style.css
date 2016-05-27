@@ -1,0 +1,14 @@
+li {
+  list-style: none;
+}
+
+footer {
+  background-color: #888;
+  color: #80B;
+  padding-bottom: 25px;
+}
+
+footer a {
+  text-decoration: underline;
+  color: inherit;
+}

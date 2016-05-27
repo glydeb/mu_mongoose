@@ -3,6 +3,7 @@ app.controller('MovieController', ['$scope', '$http', function ($scope, $http) {
   $scope.currentMovie = {};
   $scope.displayedMovieId = '';
   $scope.newComment = {};
+  $scope.sortMethod = 'title';
 
   getMovies();
 
@@ -11,6 +12,7 @@ app.controller('MovieController', ['$scope', '$http', function ($scope, $http) {
     $http.post('/movies', data)
       .then(function () {
         console.log('POST /movies');
+        $scope.currentMovie = {};
         getMovies();
       });
   };
@@ -41,10 +43,11 @@ app.controller('MovieController', ['$scope', '$http', function ($scope, $http) {
   $scope.submitComment = function (id) {
     // update the movie
     var comment = $scope.newComment;
+    console.log('comment to be put:', comment);
     $http.put('/movies/' + id + '/comments', comment)
       .then(function (response) {
         console.log('PUT /comments ', comment);
-        $scope.newComment = '';
+        $scope.newComment = {};
         getMovies();
       });
   };
